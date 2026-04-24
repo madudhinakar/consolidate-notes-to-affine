@@ -1,6 +1,6 @@
 # Local Study Notes Pipeline
 
-This repo contains a Codex-powered pipeline that turns local course materials into:
+This repo contains a study-note pipeline that turns local course materials into:
 
 - exam-style Markdown study notes
 - a styled HTML study pack
@@ -10,8 +10,12 @@ This repo contains a Codex-powered pipeline that turns local course materials in
 
 1. VS Code
 2. Python 3
-3. Codex CLI available in the terminal
-4. Your own local files
+3. Your own local course files
+
+Optional:
+
+- Codex CLI in the terminal for full automation
+- ChatGPT or another LLM for the manual fallback flow
 
 Organise your files like this:
 
@@ -23,7 +27,7 @@ Organise your files like this:
   Exercises/
 ```
 
-## How To Run
+## How To Run With Codex
 
 1. Clone this repo.
 2. Open the repo folder in VS Code.
@@ -31,6 +35,19 @@ Organise your files like this:
 4. Copy the command from [example-command.txt](/Users/Madu/Documents/New%20project/example-command.txt).
 5. Replace the example paths with your own paths.
 6. Run the command.
+
+## How To Run Without Codex
+
+1. Clone this repo.
+2. Open the repo folder in VS Code.
+3. Open `Terminal` -> `New Terminal`.
+4. Copy the command from [example-command-manual.txt](/Users/Madu/Documents/New%20project/example-command-manual.txt).
+5. Replace the example paths with your own paths.
+6. Run the command.
+7. Open the generated file `output/prompts/manual-chatgpt-prompt.md`.
+8. Upload your course files to ChatGPT or another LLM.
+9. Paste the contents of `manual-chatgpt-prompt.md`.
+10. Ask the model to generate the Markdown notes and the HTML study pack.
 
 ## Output
 
@@ -41,6 +58,7 @@ The pipeline writes to the chosen `--workdir` folder and creates:
 - `affine-import/`
 - `corpus/`
 - `analysis/`
+- `prompts/manual-chatgpt-prompt.md`
 
 ## Important
 

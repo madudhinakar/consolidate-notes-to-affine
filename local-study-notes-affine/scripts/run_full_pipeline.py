@@ -90,6 +90,18 @@ def main() -> int:
     )
     prompt_path = prompt_dir / "note-generation-prompt.md"
     prompt_path.write_text(prompt, encoding="utf-8")
+    manual_prompt = render_manual_prompt(
+        course=args.course,
+        output_contract_text=(skill_dir / "references" / "output-contract.md").read_text(encoding="utf-8"),
+        pretty_style_text=(skill_dir / "references" / "make-notes-pretty.md").read_text(encoding="utf-8"),
+        topic_clusters_text=(analysis_dir / "topic-clusters.md").read_text(encoding="utf-8"),
+        gap_report_text=(analysis_dir / "gap-report.md").read_text(encoding="utf-8"),
+        note_brief_text=(analysis_dir / "note-brief.md").read_text(encoding="utf-8"),
+        style_example_path=style_example_path,
+        style_example_text=style_example_text,
+    )
+    manual_prompt_path = prompt_dir / "manual-chatgpt-prompt.md"
+    manual_prompt_path.write_text(manual_prompt, encoding="utf-8")
 
     if not args.skip_codex:
         codex_bin = shutil.which("codex")
@@ -137,6 +149,7 @@ def main() -> int:
         f"Notes: {notes_dir}",
         f"HTML: {html_dir / 'study-pack.html'}",
         f"Prompt: {prompt_path}",
+        f"Manual prompt: {manual_prompt_path}",
     ]
     if args.skip_codex:
         summary.append("Codex generation was skipped. No AFFiNE bundle was created.")
@@ -226,6 +239,91 @@ Before finishing:
 
 def run(cmd: list[str], input_text: str | None = None) -> None:
     subprocess.run(cmd, check=True, text=True, input=input_text)
+
+
+def render_manual_prompt(
+    *,
+    course: str,
+    output_contract_text: str,
+    pretty_style_text: str,
+    topic_clusters_text: str,
+    gap_report_text: str,
+    note_brief_text: str,
+    style_example_path: Path,
+    style_example_text: str,
+) -> str:
+    return f"""I want you to create final study notes for {course}.
+
+I have uploaded my local course materials separately in this chat, including slides, textbook pages, transcripts, and practice sheets/problem sets.
+
+Use the following instructions exactly.
+
+## Writing goals
+
+- Write as if I may need to relearn the course from scratch from these notes.
+- Focus on equations, proof logic, derivation flow, and the answer sequences needed for exam-style questions.
+- Use more diagrams, visual aids, theorem maps, and flowcharts whenever they help explain the logic.
+- Do not include citations or a references section unless I explicitly ask for them.
+- The notes should read like polished honours-level study notes, not terse summaries.
+
+## Style anchor
+
+Use this exact example as the primary writing template:
+
+Path:
+`{style_example_path}`
+
+```markdown
+{style_example_text}
+```
+
+## Output contract
+
+```markdown
+{output_contract_text}
+```
+
+## HTML style contract
+
+```markdown
+{pretty_style_text}
+```
+
+## Analysis packet
+
+### Topic clusters
+
+```markdown
+{topic_clusters_text}
+```
+
+### Gap report
+
+```markdown
+{gap_report_text}
+```
+
+### Note brief
+
+```markdown
+{note_brief_text}
+```
+
+## Deliverables
+
+1. Create one or more exam-ready Markdown notes matching the output contract.
+2. Create one self-contained HTML study pack using the HTML style contract.
+3. Make the HTML suitable for AFFiNE HTML import.
+4. Use the uploaded practice sheets and problem sets as evidence for what proof structures, derivations, and question-solving logic matter most.
+
+## Important
+
+- Prefer depth over brevity.
+- Include explicit `Exam tip` callouts.
+- Use comparison tables where useful.
+- Include worked logic sequences for proofs, optimisation steps, equilibrium arguments, and duality relations.
+- Use Mermaid where it improves understanding.
+"""
 
 
 if __name__ == "__main__":
