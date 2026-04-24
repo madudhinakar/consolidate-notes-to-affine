@@ -1,0 +1,7 @@
+interface:
+  display_name: "Local Study Notes to AFFiNE"
+  short_description: "Turn local course files into AFFiNE notes"
+  default_prompt: "Use $local-study-notes-affine to extract my local slides, textbook, and transcripts into exam-ready Markdown notes for AFFiNE."
+
+policy:
+  allow_implicit_invocation: true

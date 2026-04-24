@@ -1,0 +1,9 @@
+PATH="/Users/Madu/.vscode/extensions/openai.chatgpt-26.422.21459-darwin-arm64/bin/macos-aarch64:$PATH" \
+bash "/ABSOLUTE/PATH/TO/REPO/local-study-notes-affine/run-study-notes.sh" \
+  --course "Microeconomics" \
+  --slides "/ABSOLUTE/PATH/TO/Course Folder/Slides" \
+  --textbook "/ABSOLUTE/PATH/TO/Course Folder/Textbook" \
+  --transcripts "/ABSOLUTE/PATH/TO/Course Folder/Transcripts" \
+  --practice-dir "/ABSOLUTE/PATH/TO/Course Folder/Exercises" \
+  --workdir "/ABSOLUTE/PATH/TO/Course Folder/output" \
+  --workspace "/ABSOLUTE/PATH/TO/REPO"
