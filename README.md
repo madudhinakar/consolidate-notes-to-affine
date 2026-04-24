@@ -6,14 +6,14 @@ This repo contains a Codex-powered pipeline that turns local course materials in
 - a styled HTML study pack
 - an AFFiNE-importable Markdown bundle
 
-## What Your Friend Needs
+## What You Need
 
 1. VS Code
 2. Python 3
 3. Codex CLI available in the terminal
-4. Their own local course files
+4. Your own local files
 
-They should organise their files like this:
+Organise your files like this:
 
 ```text
 /path/to/Course Folder/
@@ -29,7 +29,7 @@ They should organise their files like this:
 2. Open the repo folder in VS Code.
 3. Open `Terminal` -> `New Terminal`.
 4. Copy the command from [example-command.txt](/Users/Madu/Documents/New%20project/example-command.txt).
-5. Replace the example paths with their own paths.
+5. Replace the example paths with your own paths.
 6. Run the command.
 
 ## Output
