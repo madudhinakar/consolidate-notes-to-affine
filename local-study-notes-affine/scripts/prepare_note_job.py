@@ -54,6 +54,18 @@ def main() -> int:
             str(analysis_dir),
         ]
     )
+    run(
+        [
+            sys.executable,
+            str(root / "analyze_practice.py"),
+            "--corpus",
+            str(corpus_dir / "corpus.json"),
+            "--analysis-dir",
+            str(analysis_dir),
+            "--out",
+            str(analysis_dir),
+        ]
+    )
     print("Prepared corpus and analysis:")
     print(f"- {corpus_dir}")
     print(f"- {analysis_dir}")

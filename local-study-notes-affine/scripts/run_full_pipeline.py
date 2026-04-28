@@ -97,6 +97,10 @@ def main() -> int:
         topic_clusters_text=(analysis_dir / "topic-clusters.md").read_text(encoding="utf-8"),
         gap_report_text=(analysis_dir / "gap-report.md").read_text(encoding="utf-8"),
         note_brief_text=(analysis_dir / "note-brief.md").read_text(encoding="utf-8"),
+        practice_problem_analysis_text=(analysis_dir / "practice-problem-analysis.md").read_text(encoding="utf-8"),
+        problem_type_playbook_text=(analysis_dir / "problem-type-playbook.md").read_text(encoding="utf-8"),
+        problem_identification_text=(analysis_dir / "problem-identification-flowchart.md").read_text(encoding="utf-8"),
+        topic_dependency_text=(analysis_dir / "topic-dependency-map.md").read_text(encoding="utf-8"),
         style_example_path=style_example_path,
         style_example_text=style_example_text,
     )
@@ -140,6 +144,13 @@ def main() -> int:
                 "--notes",
                 str(notes_dir),
                 "--out",
+                str(affine_dir),
+            ]
+        )
+        run(
+            [
+                sys.executable,
+                str(root / "fix_affine_math.py"),
                 str(affine_dir),
             ]
         )
@@ -202,6 +213,10 @@ Read these files first:
 - {analysis_dir / 'topic-clusters.md'}
 - {analysis_dir / 'gap-report.md'}
 - {analysis_dir / 'note-brief.md'}
+- {analysis_dir / 'practice-problem-analysis.md'}
+- {analysis_dir / 'problem-type-playbook.md'}
+- {analysis_dir / 'problem-identification-flowchart.md'}
+- {analysis_dir / 'topic-dependency-map.md'}
 {example_block}
 
 Task:
@@ -210,19 +225,47 @@ Task:
 - Create one self-contained styled HTML study pack in: {html_path}
 - Use the analysis outputs to cluster by topic/week and explicitly recover points emphasized in transcripts but missing from slides.
 - Use any practice materials in the corpus as strong evidence for what answer structures, derivations, and proof sequences matter on the exam.
+- Compare slides, transcripts, and textbook as additive sources, not as duplicates to compress away.
+- For each important concept:
+  - preserve the slide's compact statement
+  - preserve the lecturer's wording, examples, and warnings from the transcript
+  - inject the textbook's missing rigor, proof steps, and formal detail
+- If two sources express the same idea differently, either compare the phrasings or combine them into a fuller explanation.
+- Do not drop a concept just because it seems obvious or already mentioned elsewhere.
+- When slide and transcript cover the same topic, treat the transcript as extra signal, not confirmation.
+- Treat practice problems as analysis targets, not just extra reading:
+  - classify every problem by problem type
+  - infer the standard opening move for each type
+  - build the student's recognition logic for unseen problems
+  - map each problem back to the note topics it draws on
 - Follow the Markdown structure in output-contract.md for the AFFiNE import files.
 - Follow make-notes-pretty.md for the HTML file styling and layout.
 - Assume the reader may as well be learning the course from scratch from these notes.
-- Prioritise equations, proof logic, derivation flow, and the sequence of steps needed to solve exam-style questions.
+- Prioritise equations, proof logic, derivation flow, and the conceptual development of the course material.
 - Use more diagrams, visual aids, and flowcharts where they materially improve understanding.
 - In the HTML version, apply the user-provided palette from make-notes-pretty.md and make the document suitable for AFFiNE HTML import as well.
 - Use the preferred example as the actual template:
   - explanatory honours-level prose, not terse summaries
   - formal definitions, propositions, intuition, and proof sketches where useful
-  - explicit `Exam tip` callouts
   - comparison tables when they clarify assumptions or concepts
   - no citations or references section unless explicitly required
-  - phrasing should feel like polished study notes written by a strong student
+  - phrasing should feel like polished lecture notes written carefully after class
+- Keep the voice course-notes first:
+  - explain the content as content, not as a checklist for passing
+  - avoid repetitive exam-coaching language
+  - use remarks and clarifications instead of constant `Exam tip` framing
+  - let the mathematical development and conceptual relationships carry the notes
+- For every topic tested by at least one practice problem, add a `Problem-Solving Context` block that includes:
+  - the relevant problem types
+  - the opening move as a numbered concrete ritual
+  - what the student is usually asked to do with the concept
+  - a worked example skeleton with placeholders that preserves the logic of a full solution
+- Use a teaching register:
+  - explain why each non-obvious step is taken
+  - explain what problem a concept solves before defining it
+  - when stating an assumption, state what breaks if it is dropped
+  - use third person
+- Do not merge distinct problem types merely because they share content.
 
 Output requirements:
 - Create one or more Markdown files inside {notes_dir_abs}
@@ -249,6 +292,10 @@ def render_manual_prompt(
     topic_clusters_text: str,
     gap_report_text: str,
     note_brief_text: str,
+    practice_problem_analysis_text: str,
+    problem_type_playbook_text: str,
+    problem_identification_text: str,
+    topic_dependency_text: str,
     style_example_path: Path,
     style_example_text: str,
 ) -> str:
@@ -309,20 +356,49 @@ Path:
 {note_brief_text}
 ```
 
+### Practice problem analysis
+
+```markdown
+{practice_problem_analysis_text}
+```
+
+### Problem type playbook
+
+```markdown
+{problem_type_playbook_text}
+```
+
+### Problem identification flowchart
+
+```markdown
+{problem_identification_text}
+```
+
+### Topic dependency map
+
+```markdown
+{topic_dependency_text}
+```
+
 ## Deliverables
 
 1. Create one or more exam-ready Markdown notes matching the output contract.
 2. Create one self-contained HTML study pack using the HTML style contract.
 3. Make the HTML suitable for AFFiNE HTML import.
 4. Use the uploaded practice sheets and problem sets as evidence for what proof structures, derivations, and question-solving logic matter most.
+5. For every tested concept, append a `Problem-Solving Context` block with problem types, opening move, usually-asked operations, and a worked-example skeleton.
 
 ## Important
 
 - Prefer depth over brevity.
-- Include explicit `Exam tip` callouts.
+- Prefer remarks such as `Important distinction`, `Interpretation`, or `Clarification` over repetitive exam-coaching callouts.
 - Use comparison tables where useful.
 - Include worked logic sequences for proofs, optimisation steps, equilibrium arguments, and duality relations.
 - Use Mermaid where it improves understanding.
+- Explain why each non-obvious step is taken.
+- Explain what problem a concept solves before defining it.
+- State what breaks when an assumption is dropped.
+- Use third person.
 """
 
 

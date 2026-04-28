@@ -6,18 +6,18 @@ This repo contains a study-note pipeline that turns local course materials into:
 - a styled HTML study pack
 - an AFFiNE-importable Markdown bundle
 
-## What You Need
+## Requirements
 
 1. VS Code
 2. Python 3
-3. Your own local course files
+3. Local course files
 
 Optional:
 
 - Codex CLI in the terminal for full automation
 - ChatGPT or another LLM for the manual fallback flow
 
-Organise your files like this:
+Organise the course files like this:
 
 ```text
 /path/to/Course Folder/
@@ -33,7 +33,7 @@ Organise your files like this:
 2. Open the repo folder in VS Code.
 3. Open `Terminal` -> `New Terminal`.
 4. Copy the command from [example-command.txt](/Users/Madu/Documents/New%20project/example-command.txt).
-5. Replace the example paths with your own paths.
+5. Replace the example paths with the actual local paths.
 6. Run the command.
 
 ## How To Run Without Codex
@@ -42,10 +42,10 @@ Organise your files like this:
 2. Open the repo folder in VS Code.
 3. Open `Terminal` -> `New Terminal`.
 4. Copy the command from [example-command-manual.txt](/Users/Madu/Documents/New%20project/example-command-manual.txt).
-5. Replace the example paths with your own paths.
+5. Replace the example paths with the actual local paths.
 6. Run the command.
 7. Open the generated file `output/prompts/manual-chatgpt-prompt.md`.
-8. Upload your course files to ChatGPT or another LLM.
+8. Upload the course files to ChatGPT or another LLM.
 9. Paste the contents of `manual-chatgpt-prompt.md`.
 10. Ask the model to generate the Markdown notes and the HTML study pack.
 
